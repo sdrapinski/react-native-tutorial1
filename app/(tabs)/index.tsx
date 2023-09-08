@@ -4,10 +4,14 @@ import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
 import Lottie from "lottie-react-native";
 import { RefreshControl } from "react-native-gesture-handler";
-import { useRef } from "react";
+import React, { useRef } from "react";
+
+import { ThreadContext } from "../../context/thread-context";
+import ThreadsItem from "../../components/ThredsItem";
 
 export default function TabOneScreen() {
   const animationRef = useRef<Lottie>(null);
+  const threads = React.useContext(ThreadContext);
   return (
     <SafeAreaView>
       <ScrollView
@@ -32,6 +36,9 @@ export default function TabOneScreen() {
           style={{ width: 90, height: 90, alignSelf: "center" }}
           // onAnimationFinish={() => alert("finished")}
         />
+        {threads.map((thred) => (
+          <ThreadsItem key={thred.id} {...thred} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
